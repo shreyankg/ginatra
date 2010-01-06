@@ -244,6 +244,42 @@ Catch all.
 </li>
 
     
+      <li class="public ">
+  <span class="summary_signature"><a title="#respond_to? (instance method)" href="#respond_to%3F-instance_method">- (Object) <strong>respond_to?</strong>(sym) </a>
+  
+  </span>
+  
+  
+  
+  
+
+  
+    <span class="summary_desc">
+to correspond to the #method_missing definition.
+
+</span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature"><a title="#to_s (instance method)" href="#to_s-instance_method">- (Object) <strong>to_s</strong> </a>
+  
+  </span>
+  
+  
+  
+  
+
+  
+    <span class="summary_desc">
+not sure why we need this but whatever.
+
+</span>
+  
+</li>
+
+    
   </ul>
 
 <div id="constructor_details">
@@ -904,12 +940,92 @@ if max_count is less than 0. silly billy!
 </table>
 </div>
     
+      <div class="method_details ">
+  <p class="signature " id="respond_to?-instance_method">
+  
+    - (<tt>Object</tt>) <strong>respond_to?</strong>(sym) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+to correspond to the #method_missing definition
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+86
+87
+88</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/ginatra/repo.rb', line 86</span>
+
+<span class='def def kw'>def</span> <span class='respond_to? fid id'>respond_to?</span><span class='lparen token'>(</span><span class='sym identifier id'>sym</span><span class='rparen token'>)</span>
+  <span class='@repo ivar id'>@repo</span><span class='dot token'>.</span><span class='respond_to? fid id'>respond_to?</span><span class='lparen token'>(</span><span class='sym identifier id'>sym</span><span class='rparen token'>)</span> <span class='orop op'>||</span> <span class='super super kw'>super</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="to_s-instance_method">
+  
+    - (<tt>Object</tt>) <strong>to_s</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+not sure why we need this but whatever.
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+91
+92
+93</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/ginatra/repo.rb', line 91</span>
+
+<span class='def def kw'>def</span> <span class='to_s identifier id'>to_s</span>
+  <span class='@name ivar id'>@name</span><span class='dot token'>.</span><span class='to_s identifier id'>to_s</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
   </div>
 
 </div>
     
     <div id="footer">
-  Generated on Fri Dec  4 17:15:04 2009 by 
+  Generated on Wed Jan  6 23:00:00 2010 by 
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool">yard</a>
   0.4.0 (ruby-1.8.7).
 </div>

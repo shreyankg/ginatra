@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
   <head>
     <meta name="Content-Type" content="text/html; charset=UTF-8" />
-<title>Documentation by YARD 0.4.0</title>
+<title>File: README</title>
 <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
 <link rel="stylesheet" href="css/common.css" type="text/css" media="screen" charset="utf-8" />
 
@@ -68,7 +68,14 @@
 <pre class="code">$ <span class='gem identifier id'>gem</span> <span class='install identifier id'>install</span> <span class='ginatra identifier id'>ginatra</span>
 </pre>
 
-<p>This pulls down all the required dependencies too.</p>
+<p>This pulls down most of the required dependencies too.</p>
+
+<p>The last dependency you need is pygments, an awesome python syntax highlighter. To check whether you have it, run:</p>
+
+<pre class="code">$ <span class='which identifier id'>which</span> <span class='pygmentize identifier id'>pygmentize</span>
+</pre>
+
+<p>If this returns a path pointing to a &#8216;pygmentize&#8217; binary, then you&#8217;re all set. If not you&#8217;ll need to install pygments. Look at the last section of the <a href='http://wiki.github.com/mojombo/jekyll/install'>jekyll wiki &#8220;install&#8221; page</a> to see how to install it. Also make sure again that the <code>pygmentize</code> binary is on your path.</p>
 
 <p>If you want to play around with the code, you can clone the repository. This also allows you to use a special rackup file to mount it where you wish. I am yet to sort out some of the details of running Ginatra from a gem with a rackup.ru file.</p>
 
@@ -160,7 +167,7 @@ $ <span class='ginatra identifier id'>ginatra</span> <span class='directory iden
 <p>THE SOFTWARE IS PROVIDED &#8220;AS IS&#8221;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p></div></div>
     
     <div id="footer">
-  Generated on Fri Dec  4 17:15:04 2009 by 
+  Generated on Wed Jan  6 22:59:51 2010 by 
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool">yard</a>
   0.4.0 (ruby-1.8.7).
 </div>

@@ -167,6 +167,24 @@ allows missing methods to cascade to the instance,.
 
     
       <li class="public ">
+  <span class="summary_signature"><a title="respond_to? (class method)" href="#respond_to%3F-class_method">+ (Object) <strong>respond_to?</strong>(sym) </a>
+  
+  </span>
+  
+  
+  
+  
+
+  
+    <span class="summary_desc">
+updated to correspond to the method_missing definition.
+
+</span>
+  
+</li>
+
+    
+      <li class="public ">
   <span class="summary_signature"><a title="#add (instance method)" href="#add-instance_method">- (Object) <strong>add</strong>(path, param = File.split(path)) </a>
   
   </span>
@@ -414,12 +432,12 @@ This just brings up the find method to the class scope.
       <pre class="lines">
 
 
-80
-81
-82</pre>
+86
+87
+88</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/ginatra/repo_list.rb', line 80</span>
+      <pre class="code"><span class="info file"># File 'lib/ginatra/repo_list.rb', line 86</span>
 
 <span class='def def kw'>def</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='find identifier id'>find</span><span class='lparen token'>(</span><span class='local_param identifier id'>local_param</span><span class='rparen token'>)</span>
   <span class='self self kw'>self</span><span class='dot token'>.</span><span class='instance identifier id'>instance</span><span class='dot token'>.</span><span class='find identifier id'>find</span><span class='lparen token'>(</span><span class='local_param identifier id'>local_param</span><span class='rparen token'>)</span>
@@ -500,28 +518,11 @@ a list of ginatra repos.
   
 </p><div class="docstring">
   <div class="discussion">
-    
-  <p class="note todo">
-    <strong>TODO:</strong> 
-    
-do we need this?
-
-
-  </p>
-
-  <p class="note todo">
-    <strong>TODO:</strong> 
-    
-update the respond_to? method if we do.
-
-
-Caution! contains: Magic
-
-
-  </p>
-
-<p>
+    <p>
 allows missing methods to cascade to the instance,
+</p>
+<p>
+Caution! contains: Magic
 </p>
 
 
@@ -535,15 +536,55 @@ allows missing methods to cascade to the instance,
       <pre class="lines">
 
 
-90
-91
-92</pre>
+93
+94
+95</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/ginatra/repo_list.rb', line 90</span>
+      <pre class="code"><span class="info file"># File 'lib/ginatra/repo_list.rb', line 93</span>
 
 <span class='def def kw'>def</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='method_missing identifier id'>method_missing</span><span class='lparen token'>(</span><span class='sym identifier id'>sym</span><span class='comma token'>,</span> <span class='mult op'>*</span><span class='args identifier id'>args</span><span class='comma token'>,</span> <span class='bitand op'>&amp;</span><span class='block identifier id'>block</span><span class='rparen token'>)</span>
   <span class='instance identifier id'>instance</span><span class='dot token'>.</span><span class='send identifier id'>send</span><span class='lparen token'>(</span><span class='sym identifier id'>sym</span><span class='comma token'>,</span> <span class='mult op'>*</span><span class='args identifier id'>args</span><span class='comma token'>,</span> <span class='bitand op'>&amp;</span><span class='block identifier id'>block</span><span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="respond_to?-class_method">
+  
+    + (<tt>Object</tt>) <strong>respond_to?</strong>(sym) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+updated to correspond to the method_missing definition
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+98
+99
+100</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/ginatra/repo_list.rb', line 98</span>
+
+<span class='def def kw'>def</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='respond_to? fid id'>respond_to?</span><span class='lparen token'>(</span><span class='sym identifier id'>sym</span><span class='rparen token'>)</span>
+  <span class='instance identifier id'>instance</span><span class='dot token'>.</span><span class='respond_to? fid id'>respond_to?</span><span class='lparen token'>(</span><span class='sym identifier id'>sym</span><span class='rparen token'>)</span> <span class='orop op'>||</span> <span class='super super kw'>super</span>
 <span class='end end kw'>end</span>
 </pre>
     </td>
@@ -560,16 +601,7 @@ allows missing methods to cascade to the instance,
   
 </p><div class="docstring">
   <div class="discussion">
-    
-  <p class="note todo">
-    <strong>TODO:</strong> 
-    
-Docs: what does this return?
-
-
-  </p>
-
-<p>
+    <p>
 adds a Repo corresponding to the path it found a git repo at in the
 configured globs. Checks to see that it&#8217;s not there first
 </p>
@@ -626,19 +658,35 @@ already on the list
       <pre class="lines">
 
 
+44
+45
 46
 47
 48
 49
-50</pre>
+50
+51
+52
+53
+54
+55
+56</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/ginatra/repo_list.rb', line 46</span>
+      <pre class="code"><span class="info file"># File 'lib/ginatra/repo_list.rb', line 44</span>
 
 <span class='def def kw'>def</span> <span class='add identifier id'>add</span><span class='lparen token'>(</span><span class='path identifier id'>path</span><span class='comma token'>,</span> <span class='param identifier id'>param</span> <span class='assign token'>=</span> <span class='File constant id'>File</span><span class='dot token'>.</span><span class='split identifier id'>split</span><span class='lparen token'>(</span><span class='path identifier id'>path</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='last identifier id'>last</span><span class='rparen token'>)</span>
   <span class='unless unless kw'>unless</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='has_repo? fid id'>has_repo?</span><span class='lparen token'>(</span><span class='param identifier id'>param</span><span class='rparen token'>)</span>
-    <span class='list identifier id'>list</span> <span class='lshft op'>&lt;&lt;</span> <span class='Repo constant id'>Repo</span><span class='dot token'>.</span><span class='new identifier id'>new</span><span class='lparen token'>(</span><span class='path identifier id'>path</span><span class='rparen token'>)</span>
+    <span class='begin begin kw'>begin</span>
+      <span class='list identifier id'>list</span> <span class='lshft op'>&lt;&lt;</span> <span class='Repo constant id'>Repo</span><span class='dot token'>.</span><span class='new identifier id'>new</span><span class='lparen token'>(</span><span class='path identifier id'>path</span><span class='rparen token'>)</span>
+    <span class='rescue rescue kw'>rescue</span> <span class='Grit constant id'>Grit</span><span class='colon2 op'>::</span><span class='InvalidGitRepositoryError constant id'>InvalidGitRepositoryError</span>
+      <span class='comment val'># If the path is not a git repository, then this error is raised</span>
+      <span class='comment val'># and causes an error page to result.</span>
+      <span class='comment val'># Is it preferable to just log that the error happened and not show the error page?</span>
+      <span class='Ginatra constant id'>Ginatra</span><span class='colon2 op'>::</span><span class='Config constant id'>Config</span><span class='dot token'>.</span><span class='logger identifier id'>logger</span><span class='dot token'>.</span><span class='info identifier id'>info</span> <span class='dstring node'>&quot;Invalid git repository at #{path}.  Did you create the directory and forget to run 'git init' inside that directory?&quot;</span>
+    <span class='end end kw'>end</span>
   <span class='end end kw'>end</span>
+  <span class='list identifier id'>list</span>
 <span class='end end kw'>end</span>
 </pre>
     </td>
@@ -711,17 +759,17 @@ the repository corresponding to that param.
       <pre class="lines">
 
 
-68
-69
-70
-71
-72
-73
 74
-75</pre>
+75
+76
+77
+78
+79
+80
+81</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/ginatra/repo_list.rb', line 68</span>
+      <pre class="code"><span class="info file"># File 'lib/ginatra/repo_list.rb', line 74</span>
 
 <span class='def def kw'>def</span> <span class='find identifier id'>find</span><span class='lparen token'>(</span><span class='local_param identifier id'>local_param</span><span class='rparen token'>)</span>
   <span class='if if kw'>if</span> <span class='repo identifier id'>repo</span> <span class='assign token'>=</span> <span class='list identifier id'>list</span><span class='dot token'>.</span><span class='find identifier id'>find</span> <span class='lbrace token'>{</span> <span class='bitor op'>|</span><span class='r identifier id'>r</span><span class='bitor op'>|</span> <span class='r identifier id'>r</span><span class='dot token'>.</span><span class='param identifier id'>param</span> <span class='eq op'>==</span> <span class='local_param identifier id'>local_param</span> <span class='rbrace token'>}</span>
@@ -796,12 +844,12 @@ param to check.
       <pre class="lines">
 
 
-58
-59
-60</pre>
+64
+65
+66</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/ginatra/repo_list.rb', line 58</span>
+      <pre class="code"><span class="info file"># File 'lib/ginatra/repo_list.rb', line 64</span>
 
 <span class='def def kw'>def</span> <span class='has_repo? fid id'>has_repo?</span><span class='lparen token'>(</span><span class='local_param identifier id'>local_param</span><span class='rparen token'>)</span>
   <span class='notop op'>!</span><span class='list identifier id'>list</span><span class='dot token'>.</span><span class='find identifier id'>find</span> <span class='lbrace token'>{</span> <span class='bitor op'>|</span><span class='r identifier id'>r</span><span class='bitor op'>|</span> <span class='r identifier id'>r</span><span class='dot token'>.</span><span class='param identifier id'>param</span> <span class='eq op'>==</span> <span class='local_param identifier id'>local_param</span> <span class='rbrace token'>}</span><span class='dot token'>.</span><span class='nil? fid id'>nil?</span>
@@ -821,16 +869,7 @@ param to check.
   
 </p><div class="docstring">
   <div class="discussion">
-    
-  <p class="note todo">
-    <strong>TODO:</strong> 
-    
-Docs: what the hell does this return?
-
-
-  </p>
-
-<p>
+    <p>
 searches through the configured directory globs to find all the
 repositories and adds them if they&#8217;re not already there.
 </p>
@@ -846,6 +885,8 @@ repositories and adds them if they&#8217;re not already there.
       <pre class="lines">
 
 
+29
+30
 31
 32
 33
@@ -854,13 +895,15 @@ repositories and adds them if they&#8217;re not already there.
 36</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/ginatra/repo_list.rb', line 31</span>
+      <pre class="code"><span class="info file"># File 'lib/ginatra/repo_list.rb', line 29</span>
 
 <span class='def def kw'>def</span> <span class='refresh identifier id'>refresh</span>
-  <span class='Ginatra constant id'>Ginatra</span><span class='colon2 op'>::</span><span class='Config constant id'>Config</span><span class='dot token'>.</span><span class='git_dirs identifier id'>git_dirs</span><span class='dot token'>.</span><span class='map! fid id'>map!</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='git_dir identifier id'>git_dir</span><span class='bitor op'>|</span>
+  <span class='list identifier id'>list</span><span class='dot token'>.</span><span class='clear identifier id'>clear</span>
+  <span class='Ginatra constant id'>Ginatra</span><span class='colon2 op'>::</span><span class='Config constant id'>Config</span><span class='dot token'>.</span><span class='git_dirs identifier id'>git_dirs</span><span class='dot token'>.</span><span class='map identifier id'>map</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='git_dir identifier id'>git_dir</span><span class='bitor op'>|</span>
     <span class='files identifier id'>files</span> <span class='assign token'>=</span> <span class='Dir constant id'>Dir</span><span class='dot token'>.</span><span class='glob identifier id'>glob</span><span class='lparen token'>(</span><span class='git_dir identifier id'>git_dir</span><span class='rparen token'>)</span>
     <span class='files identifier id'>files</span><span class='dot token'>.</span><span class='each identifier id'>each</span> <span class='lbrace token'>{</span> <span class='bitor op'>|</span><span class='e identifier id'>e</span><span class='bitor op'>|</span> <span class='add identifier id'>add</span><span class='lparen token'>(</span><span class='e identifier id'>e</span><span class='rparen token'>)</span> <span class='unless unless_mod kw'>unless</span> <span class='Ginatra constant id'>Ginatra</span><span class='colon2 op'>::</span><span class='Config constant id'>Config</span><span class='dot token'>.</span><span class='ignored_files identifier id'>ignored_files</span><span class='dot token'>.</span><span class='include? fid id'>include?</span><span class='lparen token'>(</span><span class='File constant id'>File</span><span class='dot token'>.</span><span class='split identifier id'>split</span><span class='lparen token'>(</span><span class='e identifier id'>e</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='last identifier id'>last</span><span class='rparen token'>)</span> <span class='rbrace token'>}</span>
   <span class='end end kw'>end</span>
+  <span class='list identifier id'>list</span>
 <span class='end end kw'>end</span>
 </pre>
     </td>
@@ -873,7 +916,7 @@ repositories and adds them if they&#8217;re not already there.
 </div>
     
     <div id="footer">
-  Generated on Fri Dec  4 17:15:05 2009 by 
+  Generated on Wed Jan  6 22:59:58 2010 by 
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool">yard</a>
   0.4.0 (ruby-1.8.7).
 </div>

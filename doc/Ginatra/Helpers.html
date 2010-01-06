@@ -182,24 +182,6 @@ calls <tt>Ginatra::Helpers#commit_ref</tt> for each ref in the commit.
 
     
       <li class="public ">
-  <span class="summary_signature"><a title="#diff (instance method)" href="#diff-instance_method">- (String) <strong>diff</strong>(diff) </a>
-  
-  </span>
-  
-  
-  
-  
-
-  
-    <span class="summary_desc">
-returns some html containing the Coderay&#8217;d diff files.
-
-</span>
-  
-</li>
-
-    
-      <li class="public ">
   <span class="summary_signature"><a title="#file_listing (instance method)" href="#file_listing-instance_method">- (String) <strong>file_listing</strong>(commit) </a>
   
   </span>
@@ -308,6 +290,54 @@ returns a string including the link to download a patch for a certain
 commit to the repo.
 
 </span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature"><a title="#prefix_url (instance method)" href="#prefix_url-instance_method">- (Object) <strong>prefix_url</strong>(rest_of_url = &quot;&quot;) </a>
+  
+  </span>
+  
+  
+  
+  
+
+  
+    <span class="summary_desc">
+constructs the URL used in the layout&#8217;s base tag.
+
+</span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature"><a title="#pygmentize (instance method)" href="#pygmentize-instance_method">- (Object) <strong>pygmentize</strong>(content, filename = nil) </a>
+  
+  </span>
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature"><a title="#pygmentize_type (instance method)" href="#pygmentize_type-instance_method">- (Object) <strong>pygmentize_type</strong>(filename) </a>
+  
+  </span>
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"></span>
   
 </li>
 
@@ -483,12 +513,12 @@ a string that contains the box for the actor.
       <pre class="lines">
 
 
-35
-36
-37</pre>
+47
+48
+49</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/ginatra/helpers.rb', line 35</span>
+      <pre class="code"><span class="info file"># File 'lib/ginatra/helpers.rb', line 47</span>
 
 <span class='def def kw'>def</span> <span class='actor_box identifier id'>actor_box</span><span class='lparen token'>(</span><span class='actor identifier id'>actor</span><span class='comma token'>,</span> <span class='role identifier id'>role</span><span class='comma token'>,</span> <span class='date identifier id'>date</span><span class='rparen token'>)</span>
   <span class='partial identifier id'>partial</span><span class='lparen token'>(</span><span class='symbol val'>:actor_box</span><span class='comma token'>,</span> <span class='symbol val'>:locals</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lbrace token'>{</span> <span class='symbol val'>:actor</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='actor identifier id'>actor</span><span class='comma token'>,</span> <span class='symbol val'>:role</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='role identifier id'>role</span><span class='comma token'>,</span> <span class='symbol val'>:date</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='date identifier id'>date</span> <span class='rbrace token'>}</span><span class='rparen token'>)</span>
@@ -567,15 +597,15 @@ a string representing the HTML actor boxes
       <pre class="lines">
 
 
-46
-47
-48
-49
-50
-51</pre>
+58
+59
+60
+61
+62
+63</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/ginatra/helpers.rb', line 46</span>
+      <pre class="code"><span class="info file"># File 'lib/ginatra/helpers.rb', line 58</span>
 
 <span class='def def kw'>def</span> <span class='actor_boxes identifier id'>actor_boxes</span><span class='lparen token'>(</span><span class='commit identifier id'>commit</span><span class='rparen token'>)</span>
   <span class='o identifier id'>o</span> <span class='assign token'>=</span> <span class='actor_box identifier id'>actor_box</span><span class='lparen token'>(</span><span class='commit identifier id'>commit</span><span class='dot token'>.</span><span class='committer identifier id'>committer</span><span class='comma token'>,</span> <span class='symbol val'>:committer</span><span class='comma token'>,</span> <span class='commit identifier id'>commit</span><span class='dot token'>.</span><span class='committed_date identifier id'>committed_date</span><span class='rparen token'>)</span>
@@ -670,15 +700,15 @@ the HTML link to the archive.
       <pre class="lines">
 
 
-86
-87
-88</pre>
+98
+99
+100</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/ginatra/helpers.rb', line 86</span>
+      <pre class="code"><span class="info file"># File 'lib/ginatra/helpers.rb', line 98</span>
 
 <span class='def def kw'>def</span> <span class='archive_link identifier id'>archive_link</span><span class='lparen token'>(</span><span class='tree identifier id'>tree</span><span class='comma token'>,</span> <span class='repo_param identifier id'>repo_param</span><span class='rparen token'>)</span>
-  <span class='dstring node'>&quot;&lt;a class=\&quot;download\&quot; href=\&quot;/#{repo_param}/archive/#{tree.id}.tar.gz\&quot; title=\&quot;Download a tar.gz snapshot of this Tree\&quot;&gt;Download Archive&lt;/a&gt;&quot;</span>
+  <span class='string val'>&quot;&lt;a class=\&quot;download\&quot; href=\&quot;&quot;</span> <span class='plus op'>+</span> <span class='prefix_url identifier id'>prefix_url</span><span class='lparen token'>(</span><span class='dstring node'>&quot;#{repo_param}/archive/#{tree.id}.tar.gz&quot;</span><span class='rparen token'>)</span> <span class='plus op'>+</span> <span class='string val'>&quot;\&quot; title=\&quot;Download a tar.gz snapshot of this Tree\&quot;&gt;Download Archive&lt;/a&gt;&quot;</span>
 <span class='end end kw'>end</span>
 </pre>
     </td>
@@ -769,15 +799,15 @@ the HTML containing the link to the feed.
       <pre class="lines">
 
 
-228
-229
-230</pre>
+231
+232
+233</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/ginatra/helpers.rb', line 228</span>
+      <pre class="code"><span class="info file"># File 'lib/ginatra/helpers.rb', line 231</span>
 
 <span class='def def kw'>def</span> <span class='atom_feed_link identifier id'>atom_feed_link</span><span class='lparen token'>(</span><span class='repo_param identifier id'>repo_param</span><span class='comma token'>,</span> <span class='ref identifier id'>ref</span><span class='assign token'>=</span><span class='nil nil kw'>nil</span><span class='rparen token'>)</span>
-  <span class='dstring node'>&quot;&lt;a href=\&quot;/#{repo_param}#{&quot;/#{ref}&quot; if !ref.nil?}.atom\&quot; title=\&quot;Atom Feed\&quot; class=\&quot;atom\&quot;&gt;Feed&lt;/a&gt;&quot;</span>
+  <span class='string val'>&quot;&lt;a href=\&quot;&quot;</span> <span class='plus op'>+</span> <span class='prefix_url identifier id'>prefix_url</span><span class='lparen token'>(</span><span class='dstring node'>&quot;#{repo_param}#{&quot;/#{ref}&quot; if !ref.nil?}.atom&quot;</span><span class='rparen token'>)</span> <span class='plus op'>+</span> <span class='string val'>&quot;\&quot; title=\&quot;Atom Feed\&quot; class=\&quot;atom\&quot;&gt;Feed&lt;/a&gt;&quot;</span>
 <span class='end end kw'>end</span>
 </pre>
     </td>
@@ -866,17 +896,17 @@ HTML link to the given ref with class attached.
       <pre class="lines">
 
 
-60
-61
-62
-63</pre>
+72
+73
+74
+75</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/ginatra/helpers.rb', line 60</span>
+      <pre class="code"><span class="info file"># File 'lib/ginatra/helpers.rb', line 72</span>
 
 <span class='def def kw'>def</span> <span class='commit_ref identifier id'>commit_ref</span><span class='lparen token'>(</span><span class='ref identifier id'>ref</span><span class='comma token'>,</span> <span class='repo_param identifier id'>repo_param</span><span class='rparen token'>)</span>
   <span class='ref_class identifier id'>ref_class</span> <span class='assign token'>=</span> <span class='ref identifier id'>ref</span><span class='dot token'>.</span><span class='class identifier id'>class</span><span class='dot token'>.</span><span class='to_s identifier id'>to_s</span><span class='dot token'>.</span><span class='split identifier id'>split</span><span class='lparen token'>(</span><span class='string val'>&quot;::&quot;</span><span class='rparen token'>)</span><span class='lbrack token'>[</span><span class='integer val'>1</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='to_s identifier id'>to_s</span>
-  <span class='dstring node'>&quot;&lt;a class=\&quot;ref #{ref_class}\&quot; href=\&quot;/#{repo_param}/#{ref.name}\&quot;&gt;#{ref.name}&lt;/a&gt;&quot;</span>
+  <span class='dstring node'>&quot;&lt;a class=\&quot;ref #{ref_class}\&quot; href=\&quot;&quot;</span> <span class='plus op'>+</span> <span class='prefix_url identifier id'>prefix_url</span><span class='lparen token'>(</span><span class='dstring node'>&quot;#{repo_param}/#{ref.name}&quot;</span><span class='rparen token'>)</span> <span class='plus op'>+</span> <span class='dstring node'>&quot;\&quot;&gt;#{ref.name}&lt;/a&gt;&quot;</span>
 <span class='end end kw'>end</span>
 </pre>
     </td>
@@ -972,95 +1002,15 @@ HTML containing all the ref links
       <pre class="lines">
 
 
-74
-75
-76</pre>
+86
+87
+88</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/ginatra/helpers.rb', line 74</span>
+      <pre class="code"><span class="info file"># File 'lib/ginatra/helpers.rb', line 86</span>
 
 <span class='def def kw'>def</span> <span class='commit_refs identifier id'>commit_refs</span><span class='lparen token'>(</span><span class='commit identifier id'>commit</span><span class='comma token'>,</span> <span class='repo_param identifier id'>repo_param</span><span class='rparen token'>)</span>
   <span class='commit identifier id'>commit</span><span class='dot token'>.</span><span class='refs identifier id'>refs</span><span class='dot token'>.</span><span class='map identifier id'>map</span><span class='lbrace token'>{</span> <span class='bitor op'>|</span><span class='r identifier id'>r</span><span class='bitor op'>|</span> <span class='commit_ref identifier id'>commit_ref</span><span class='lparen token'>(</span><span class='r identifier id'>r</span><span class='comma token'>,</span> <span class='repo_param identifier id'>repo_param</span><span class='rparen token'>)</span> <span class='rbrace token'>}</span><span class='dot token'>.</span><span class='join identifier id'>join</span><span class='lparen token'>(</span><span class='string val'>&quot;\n&quot;</span><span class='rparen token'>)</span>
-<span class='end end kw'>end</span>
-</pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <p class="signature " id="diff-instance_method">
-  
-    - (<tt>String</tt>) <strong>diff</strong>(diff) 
-  
-
-  
-</p><div class="docstring">
-  <div class="discussion">
-    <p>
-returns some html containing the Coderay&#8217;d diff files.
-</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  <h3>Parameters:</h3>
-<ul class="param">
-  
-    <li>
-      
-        <span class='type'>(<tt>String</tt>)</span>
-      
-      
-        <span class='name'>diff</span>
-      
-      
-      
-        &mdash;
-        
-the diff you want highlighted
-
-
-      
-    </li>
-  
-</ul>
-<h3>Returns:</h3>
-<ul class="return">
-  
-    <li>
-      
-        <span class='type'>(<tt>String</tt>)</span>
-      
-      
-      
-      
-        &mdash;
-        
-the highlighted diff
-
-
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-130
-131
-132</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/ginatra/helpers.rb', line 130</span>
-
-<span class='def def kw'>def</span> <span class='diff identifier id'>diff</span><span class='lparen token'>(</span><span class='diff identifier id'>diff</span><span class='rparen token'>)</span>
-  <span class='diff identifier id'>diff</span> <span class='assign token'>=</span> <span class='CodeRay constant id'>CodeRay</span><span class='dot token'>.</span><span class='scan identifier id'>scan</span><span class='lparen token'>(</span><span class='diff identifier id'>diff</span><span class='comma token'>,</span> <span class='symbol val'>:diff</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='div identifier id'>div</span><span class='lparen token'>(</span><span class='symbol val'>:line_numbers</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='symbol val'>:table</span><span class='comma token'>,</span> <span class='symbol val'>:css</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='symbol val'>:class</span><span class='rparen token'>)</span>
 <span class='end end kw'>end</span>
 </pre>
     </td>
@@ -1137,24 +1087,24 @@ a <tt>&lt;ul&gt;</tt> with lots of <tt>&lt;li&gt;</tt> children.
       <pre class="lines">
 
 
-110
-111
-112
-113
-114
-115
-116
-117
-118
-119
-120
-121
 122
 123
-124</pre>
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/ginatra/helpers.rb', line 110</span>
+      <pre class="code"><span class="info file"># File 'lib/ginatra/helpers.rb', line 122</span>
 
 <span class='def def kw'>def</span> <span class='file_listing identifier id'>file_listing</span><span class='lparen token'>(</span><span class='commit identifier id'>commit</span><span class='rparen token'>)</span>
   <span class='comment val'># The only reason this doesn't work 100% of the time is because grit doesn't :/</span>
@@ -1241,12 +1191,12 @@ the url to the gravatar
       <pre class="lines">
 
 
-12
-13
-14</pre>
+24
+25
+26</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/ginatra/helpers.rb', line 12</span>
+      <pre class="code"><span class="info file"># File 'lib/ginatra/helpers.rb', line 24</span>
 
 <span class='def def kw'>def</span> <span class='gravatar_url identifier id'>gravatar_url</span><span class='lparen token'>(</span><span class='email identifier id'>email</span><span class='rparen token'>)</span>
   <span class='dstring node'>&quot;https://secure.gravatar.com/avatar/#{Digest::MD5.hexdigest(email)}?s=40&quot;</span>
@@ -1266,20 +1216,11 @@ the url to the gravatar
   
 </p><div class="docstring">
   <div class="discussion">
-    
-  <p class="note todo">
-    <strong>TODO:</strong> 
-    
-Where is this used?
-
-
-stolen from Marley
-
-
-  </p>
-
+    <p>
+Returns the Hostname of the given install. used in the atom feeds.
+</p>
 <p>
-Returns the Hostname of the given install.
+stolen from Marley
 </p>
 
 
@@ -1312,12 +1253,12 @@ the hostname of the server. Respects HTTP-X-Forwarded-For
       <pre class="lines">
 
 
-218
-219
-220</pre>
+221
+222
+223</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/ginatra/helpers.rb', line 218</span>
+      <pre class="code"><span class="info file"># File 'lib/ginatra/helpers.rb', line 221</span>
 
 <span class='def def kw'>def</span> <span class='hostname identifier id'>hostname</span>
   <span class='lparen token'>(</span><span class='request identifier id'>request</span><span class='dot token'>.</span><span class='env identifier id'>env</span><span class='lbrack token'>[</span><span class='string val'>'HTTP_X_FORWARDED_SERVER'</span><span class='rbrack token'>]</span> <span class='match op'>=~</span> <span class='regexp val'>/[a-z]*/</span><span class='rparen token'>)</span> <span class='question op'>?</span> <span class='request identifier id'>request</span><span class='dot token'>.</span><span class='env identifier id'>env</span><span class='lbrack token'>[</span><span class='string val'>'HTTP_X_FORWARDED_SERVER'</span><span class='rbrack token'>]</span> <span class='colon op'>:</span> <span class='request identifier id'>request</span><span class='dot token'>.</span><span class='env identifier id'>env</span><span class='lbrack token'>[</span><span class='string val'>'HTTP_HOST'</span><span class='rbrack token'>]</span>
@@ -1418,17 +1359,17 @@ the cleaned html text.
       <pre class="lines">
 
 
-170
-171
-172
-173
 174
 175
 176
-177</pre>
+177
+178
+179
+180
+181</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/ginatra/helpers.rb', line 170</span>
+      <pre class="code"><span class="info file"># File 'lib/ginatra/helpers.rb', line 174</span>
 
 <span class='def def kw'>def</span> <span class='html_escape identifier id'>html_escape</span><span class='lparen token'>(</span><span class='clean_me identifier id'>clean_me</span><span class='rparen token'>)</span>
   <span class='clean_me identifier id'>clean_me</span><span class='dot token'>.</span><span class='to_s identifier id'>to_s</span><span class='dot token'>.</span><span class='gsub identifier id'>gsub</span><span class='lparen token'>(</span><span class='regexp val'>/[&amp;&quot;&lt;&gt;]/</span><span class='rparen token'>)</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='special identifier id'>special</span><span class='bitor op'>|</span>
@@ -1509,12 +1450,12 @@ html string formatted using <tt>&quot;%b %d, %Y &amp;ndash;
       <pre class="lines">
 
 
-21
-22
-23</pre>
+33
+34
+35</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/ginatra/helpers.rb', line 21</span>
+      <pre class="code"><span class="info file"># File 'lib/ginatra/helpers.rb', line 33</span>
 
 <span class='def def kw'>def</span> <span class='nicetime identifier id'>nicetime</span><span class='lparen token'>(</span><span class='date identifier id'>date</span><span class='rparen token'>)</span>
   <span class='date identifier id'>date</span><span class='dot token'>.</span><span class='strftime identifier id'>strftime</span><span class='lparen token'>(</span><span class='string val'>&quot;%b %d, %Y &amp;ndash; %H:%M&quot;</span><span class='rparen token'>)</span>
@@ -1607,15 +1548,151 @@ the HTML link to the patch
       <pre class="lines">
 
 
-98
-99
-100</pre>
+110
+111
+112</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/ginatra/helpers.rb', line 98</span>
+      <pre class="code"><span class="info file"># File 'lib/ginatra/helpers.rb', line 110</span>
 
 <span class='def def kw'>def</span> <span class='patch_link identifier id'>patch_link</span><span class='lparen token'>(</span><span class='commit identifier id'>commit</span><span class='comma token'>,</span> <span class='repo_param identifier id'>repo_param</span><span class='rparen token'>)</span>
-  <span class='dstring node'>&quot;&lt;a class=\&quot;download\&quot; href=\&quot;/#{repo_param}/commit/#{commit.id}.patch\&quot; title=\&quot;Download a patch file of this Commit\&quot;&gt;Download Patch&lt;/a&gt;&quot;</span>
+  <span class='string val'>&quot;&lt;a class=\&quot;download\&quot; href=\&quot;&quot;</span> <span class='plus op'>+</span> <span class='prefix_url identifier id'>prefix_url</span><span class='lparen token'>(</span><span class='dstring node'>&quot;#{repo_param}/commit/#{commit.id}.patch&quot;</span><span class='rparen token'>)</span> <span class='plus op'>+</span> <span class='string val'>&quot;\&quot; title=\&quot;Download a patch file of this Commit\&quot;&gt;Download Patch&lt;/a&gt;&quot;</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="prefix_url-instance_method">
+  
+    - (<tt>Object</tt>) <strong>prefix_url</strong>(rest_of_url = &quot;&quot;) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>
+constructs the URL used in the layout&#8217;s base tag
+</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+10
+11
+12
+13
+14
+15
+16
+17
+18</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/ginatra/helpers.rb', line 10</span>
+
+<span class='def def kw'>def</span> <span class='prefix_url identifier id'>prefix_url</span><span class='lparen token'>(</span><span class='rest_of_url identifier id'>rest_of_url</span><span class='assign token'>=</span><span class='string val'>&quot;&quot;</span><span class='rparen token'>)</span>
+  <span class='prefix identifier id'>prefix</span> <span class='assign token'>=</span> <span class='Ginatra constant id'>Ginatra</span><span class='colon2 op'>::</span><span class='Config constant id'>Config</span><span class='lbrack token'>[</span><span class='symbol val'>:prefix</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='to_s identifier id'>to_s</span>
+
+  <span class='if if kw'>if</span> <span class='prefix identifier id'>prefix</span><span class='dot token'>.</span><span class='length identifier id'>length</span> <span class='gt op'>&gt;</span> <span class='integer val'>0</span> <span class='andop op'>&amp;&amp;</span> <span class='prefix identifier id'>prefix</span><span class='lbrack token'>[</span><span class='integer val'>-1</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='chr identifier id'>chr</span> <span class='eq op'>==</span> <span class='string val'>&quot;/&quot;</span>
+    <span class='prefix identifier id'>prefix</span><span class='dot token'>.</span><span class='chop! fid id'>chop!</span>
+  <span class='end end kw'>end</span>
+
+  <span class='dstring node'>&quot;#{prefix}/#{rest_of_url}&quot;</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="pygmentize-instance_method">
+  
+    - (<tt>Object</tt>) <strong>pygmentize</strong>(content, filename = nil) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/ginatra/helpers.rb', line 235</span>
+
+<span class='def def kw'>def</span> <span class='pygmentize identifier id'>pygmentize</span><span class='lparen token'>(</span><span class='content identifier id'>content</span><span class='comma token'>,</span> <span class='filename identifier id'>filename</span><span class='assign token'>=</span><span class='nil nil kw'>nil</span><span class='rparen token'>)</span>
+  <span class='type identifier id'>type</span> <span class='assign token'>=</span> <span class='notop op'>!</span><span class='filename identifier id'>filename</span> <span class='integer val'>? </span><span class='string val'>&quot;diff&quot;</span> <span class='colon op'>:</span> <span class='pygmentize_type identifier id'>pygmentize_type</span><span class='lparen token'>(</span><span class='filename identifier id'>filename</span><span class='rparen token'>)</span>
+  <span class='html_output identifier id'>html_output</span> <span class='assign token'>=</span> <span class='string val'>''</span>
+  <span class='Open4 constant id'>Open4</span><span class='dot token'>.</span><span class='popen4 identifier id'>popen4</span><span class='lparen token'>(</span><span class='dstring node'>&quot;pygmentize -l #{type} -f html&quot;</span><span class='rparen token'>)</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='pid identifier id'>pid</span><span class='comma token'>,</span> <span class='stdin identifier id'>stdin</span><span class='comma token'>,</span> <span class='stdout identifier id'>stdout</span><span class='comma token'>,</span> <span class='stderr identifier id'>stderr</span><span class='bitor op'>|</span>
+    <span class='stdin identifier id'>stdin</span><span class='dot token'>.</span><span class='puts identifier id'>puts</span> <span class='content identifier id'>content</span>
+    <span class='stdin identifier id'>stdin</span><span class='dot token'>.</span><span class='close identifier id'>close</span>
+    <span class='html_output identifier id'>html_output</span> <span class='assign token'>=</span> <span class='stdout identifier id'>stdout</span><span class='dot token'>.</span><span class='read identifier id'>read</span><span class='dot token'>.</span><span class='strip identifier id'>strip</span>
+    <span class='lbrack token'>[</span><span class='stdout identifier id'>stdout</span><span class='comma token'>,</span> <span class='stderr identifier id'>stderr</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='each identifier id'>each</span> <span class='lbrace token'>{</span><span class='bitor op'>|</span><span class='io identifier id'>io</span><span class='bitor op'>|</span> <span class='io identifier id'>io</span><span class='dot token'>.</span><span class='close identifier id'>close</span> <span class='rbrace token'>}</span>
+  <span class='end end kw'>end</span>
+  <span class='html_output identifier id'>html_output</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="pygmentize_type-instance_method">
+  
+    - (<tt>Object</tt>) <strong>pygmentize_type</strong>(filename) 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+247
+248
+249
+250
+251
+252
+253
+254</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/ginatra/helpers.rb', line 247</span>
+
+<span class='def def kw'>def</span> <span class='pygmentize_type identifier id'>pygmentize_type</span><span class='lparen token'>(</span><span class='filename identifier id'>filename</span><span class='rparen token'>)</span>
+  <span class='type identifier id'>type</span> <span class='assign token'>=</span><span class='string val'>''</span>
+  <span class='Open4 constant id'>Open4</span><span class='dot token'>.</span><span class='popen4 identifier id'>popen4</span><span class='lparen token'>(</span><span class='dstring node'>&quot;pygmentize -N #{filename}&quot;</span><span class='rparen token'>)</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='pid identifier id'>pid</span><span class='comma token'>,</span> <span class='stdin identifier id'>stdin</span><span class='comma token'>,</span> <span class='stdout identifier id'>stdout</span><span class='comma token'>,</span> <span class='stderr identifier id'>stderr</span><span class='bitor op'>|</span>
+    <span class='type identifier id'>type</span> <span class='assign token'>=</span> <span class='stdout identifier id'>stdout</span><span class='dot token'>.</span><span class='read identifier id'>read</span><span class='dot token'>.</span><span class='strip identifier id'>strip</span>
+    <span class='lbrack token'>[</span><span class='stdin identifier id'>stdin</span><span class='comma token'>,</span> <span class='stdout identifier id'>stdout</span><span class='comma token'>,</span> <span class='stderr identifier id'>stderr</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='each identifier id'>each</span> <span class='lbrace token'>{</span><span class='bitor op'>|</span><span class='io identifier id'>io</span><span class='bitor op'>|</span> <span class='io identifier id'>io</span><span class='dot token'>.</span><span class='close identifier id'>close</span> <span class='rbrace token'>}</span>
+  <span class='end end kw'>end</span>
+  <span class='type identifier id'>type</span>
 <span class='end end kw'>end</span>
 </pre>
     </td>
@@ -1690,12 +1767,12 @@ the formatted datetime
       <pre class="lines">
 
 
-207
-208
-209</pre>
+211
+212
+213</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/ginatra/helpers.rb', line 207</span>
+      <pre class="code"><span class="info file"># File 'lib/ginatra/helpers.rb', line 211</span>
 
 <span class='def def kw'>def</span> <span class='rfc_date identifier id'>rfc_date</span><span class='lparen token'>(</span><span class='datetime identifier id'>datetime</span><span class='rparen token'>)</span>
   <span class='datetime identifier id'>datetime</span><span class='dot token'>.</span><span class='strftime identifier id'>strftime</span><span class='lparen token'>(</span><span class='string val'>&quot;%Y-%m-%dT%H:%M:%SZ&quot;</span><span class='rparen token'>)</span> <span class='comment val'># 2003-12-13T18:30:02Z</span>
@@ -1776,15 +1853,15 @@ the formatted text
       <pre class="lines">
 
 
-144
-145
-146
-147
 148
-149</pre>
+149
+150
+151
+152
+153</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/ginatra/helpers.rb', line 144</span>
+      <pre class="code"><span class="info file"># File 'lib/ginatra/helpers.rb', line 148</span>
 
 <span class='def def kw'>def</span> <span class='simple_format identifier id'>simple_format</span><span class='lparen token'>(</span><span class='text identifier id'>text</span><span class='rparen token'>)</span>
   <span class='text identifier id'>text</span><span class='dot token'>.</span><span class='gsub! fid id'>gsub!</span><span class='lparen token'>(</span><span class='regexp val'>/ +/</span><span class='comma token'>,</span> <span class='string val'>&quot; &quot;</span><span class='rparen token'>)</span>
@@ -1907,20 +1984,20 @@ the truncated text.
       <pre class="lines">
 
 
-189
-190
-191
-192
 193
 194
 195
 196
 197
 198
-199</pre>
+199
+200
+201
+202
+203</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/ginatra/helpers.rb', line 189</span>
+      <pre class="code"><span class="info file"># File 'lib/ginatra/helpers.rb', line 193</span>
 
 <span class='def def kw'>def</span> <span class='truncate identifier id'>truncate</span><span class='lparen token'>(</span><span class='text identifier id'>text</span><span class='comma token'>,</span> <span class='options identifier id'>options</span><span class='assign token'>=</span><span class='lbrace token'>{</span><span class='rbrace token'>}</span><span class='rparen token'>)</span>
     <span class='options identifier id'>options</span><span class='lbrack token'>[</span><span class='symbol val'>:length</span><span class='rbrack token'>]</span> <span class='opasgn op'>||=</span> <span class='integer val'>30</span>
@@ -1944,7 +2021,7 @@ the truncated text.
 </div>
     
     <div id="footer">
-  Generated on Fri Dec  4 17:15:06 2009 by 
+  Generated on Wed Jan  6 22:59:56 2010 by 
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool">yard</a>
   0.4.0 (ruby-1.8.7).
 </div>

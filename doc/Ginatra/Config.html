@@ -99,7 +99,9 @@ A default config that we fall back to if no file is found.
   <span class='symbol val'>:git_dirs</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lbrack token'>[</span><span class='File constant id'>File</span><span class='dot token'>.</span><span class='expand_path identifier id'>expand_path</span><span class='lparen token'>(</span><span class='dstring node'>&quot;#{current_path}/../../repos/*&quot;</span><span class='rparen token'>)</span><span class='rbrack token'>]</span><span class='comma token'>,</span>
   <span class='symbol val'>:ignored_files</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='lbrack token'>[</span><span class='string val'>'README.md'</span><span class='rbrack token'>]</span><span class='comma token'>,</span>
   <span class='symbol val'>:description</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;View My Git Repositories&quot;</span><span class='comma token'>,</span>
-  <span class='symbol val'>:port</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='integer val'>9797</span>
+  <span class='symbol val'>:port</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='integer val'>9797</span><span class='comma token'>,</span>
+  <span class='symbol val'>:host</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;0.0.0.0&quot;</span><span class='comma token'>,</span>
+  <span class='symbol val'>:prefix</span> <span class='assign token'>=</span><span class='gt op'>&gt;</span> <span class='string val'>&quot;/&quot;</span>
 <span class='rbrace token'>}</span>
 </pre></dd>
       
@@ -144,6 +146,21 @@ WITHOUT regard for what&#8217;s already there.
 Loads the configuration and merges it with the default configuration.
 
 </span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature"><a title="logger (class method)" href="#logger-class_method">+ (Object) <strong>logger</strong> </a>
+  
+  </span>
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"></span>
   
 </li>
 
@@ -239,14 +256,14 @@ Very Destructive Method. Use with care!
       <pre class="lines">
 
 
-54
-55
-56
-57
-58</pre>
+89
+90
+91
+92
+93</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/ginatra/config.rb', line 54</span>
+      <pre class="code"><span class="info file"># File 'lib/ginatra/config.rb', line 89</span>
 
 <span class='def def kw'>def</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='dump! fid id'>dump!</span>
   <span class='File constant id'>File</span><span class='dot token'>.</span><span class='open identifier id'>open</span><span class='lparen token'>(</span><span class='CONFIG_PATH constant id'>CONFIG_PATH</span><span class='comma token'>,</span> <span class='string val'>'w'</span><span class='rparen token'>)</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='f identifier id'>f</span><span class='bitor op'>|</span>
@@ -302,17 +319,17 @@ config a hash of the configuration options
       <pre class="lines">
 
 
-41
-42
-43
-44
-45
-46
-47
-48</pre>
+76
+77
+78
+79
+80
+81
+82
+83</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/ginatra/config.rb', line 41</span>
+      <pre class="code"><span class="info file"># File 'lib/ginatra/config.rb', line 76</span>
 
 <span class='def def kw'>def</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='load! fid id'>load!</span>
   <span class='@config ivar id'>@config</span> <span class='assign token'>=</span> <span class='lbrace token'>{</span><span class='rbrace token'>}</span>
@@ -321,6 +338,93 @@ config a hash of the configuration options
   <span class='rescue rescue kw'>rescue</span> <span class='Errno constant id'>Errno</span><span class='colon2 op'>::</span><span class='ENOENT constant id'>ENOENT</span>
   <span class='end end kw'>end</span>
   <span class='@config ivar id'>@config</span> <span class='assign token'>=</span> <span class='DEFAULT_CONFIG constant id'>DEFAULT_CONFIG</span><span class='dot token'>.</span><span class='merge identifier id'>merge</span><span class='lparen token'>(</span><span class='@config ivar id'>@config</span><span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="logger-class_method">
+  
+    + (<tt>Object</tt>) <strong>logger</strong> 
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/ginatra/config.rb', line 23</span>
+
+<span class='def def kw'>def</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='logger identifier id'>logger</span>
+  <span class='return return kw'>return</span> <span class='@logger ivar id'>@logger</span> <span class='if if_mod kw'>if</span> <span class='@logger ivar id'>@logger</span>
+
+  <span class='log_file identifier id'>log_file</span> <span class='assign token'>=</span> <span class='Ginatra constant id'>Ginatra</span><span class='colon2 op'>::</span><span class='Config constant id'>Config</span><span class='lbrack token'>[</span><span class='symbol val'>:log_file</span><span class='rbrack token'>]</span><span class='dot token'>.</span><span class='to_s identifier id'>to_s</span> <span class='orop op'>||</span> <span class='STDOUT constant id'>STDOUT</span>
+
+  <span class='comment val'># create log_file location</span>
+  <span class='comment val'># The log_file config option should be an absolute file system path</span>
+  <span class='comment val'># It doesn't have to exist, but ginatra should have the proper file system privileges to create the directories </span>
+  <span class='comment val'># and files along the specified path</span>
+  <span class='unless unless kw'>unless</span> <span class='log_file identifier id'>log_file</span> <span class='eq op'>==</span> <span class='STDOUT constant id'>STDOUT</span>
+    <span class='parent_dir identifier id'>parent_dir</span><span class='comma token'>,</span> <span class='separator identifier id'>separator</span><span class='comma token'>,</span> <span class='file_component identifier id'>file_component</span> <span class='assign token'>=</span> <span class='log_file identifier id'>log_file</span><span class='dot token'>.</span><span class='rpartition identifier id'>rpartition</span><span class='lparen token'>(</span><span class='string val'>&quot;/&quot;</span><span class='rparen token'>)</span>
+    <span class='FileUtils constant id'>FileUtils</span><span class='dot token'>.</span><span class='mkdir_p identifier id'>mkdir_p</span> <span class='parent_dir identifier id'>parent_dir</span>
+    <span class='FileUtils constant id'>FileUtils</span><span class='dot token'>.</span><span class='touch identifier id'>touch</span> <span class='log_file identifier id'>log_file</span>
+  <span class='end end kw'>end</span>
+
+  <span class='comment val'># determine log level from config file</span>
+  <span class='comment val'># The log_level config option should be one of the Logger::Severity constant names (case doesn't matter)</span>
+  <span class='comment val'># example: :log_level: debug</span>
+  <span class='log_level identifier id'>log_level</span> <span class='assign token'>=</span> <span class='Ginatra constant id'>Ginatra</span><span class='colon2 op'>::</span><span class='Config constant id'>Config</span><span class='lbrack token'>[</span><span class='symbol val'>:log_level</span><span class='rbrack token'>]</span>
+
+  <span class='if if kw'>if</span> <span class='log_level identifier id'>log_level</span><span class='dot token'>.</span><span class='nil? fid id'>nil?</span>
+    <span class='log_level identifier id'>log_level</span> <span class='assign token'>=</span> <span class='Logger constant id'>Logger</span><span class='colon2 op'>::</span><span class='WARN constant id'>WARN</span>
+  <span class='else else kw'>else</span>
+    <span class='log_level identifier id'>log_level</span> <span class='assign token'>=</span> <span class='Logger constant id'>Logger</span><span class='dot token'>.</span><span class='const_get identifier id'>const_get</span><span class='lparen token'>(</span><span class='log_level identifier id'>log_level</span><span class='dot token'>.</span><span class='to_s identifier id'>to_s</span><span class='dot token'>.</span><span class='upcase identifier id'>upcase</span><span class='dot token'>.</span><span class='to_sym identifier id'>to_sym</span><span class='rparen token'>)</span>
+    <span class='log_level identifier id'>log_level</span> <span class='assign token'>=</span> <span class='Logger constant id'>Logger</span><span class='colon2 op'>::</span><span class='WARN constant id'>WARN</span> <span class='if if_mod kw'>if</span> <span class='log_level identifier id'>log_level</span><span class='dot token'>.</span><span class='nil? fid id'>nil?</span>
+  <span class='end end kw'>end</span>
+
+  <span class='@logger ivar id'>@logger</span> <span class='assign token'>=</span> <span class='Logger constant id'>Logger</span><span class='dot token'>.</span><span class='new identifier id'>new</span><span class='lparen token'>(</span><span class='log_file identifier id'>log_file</span><span class='rparen token'>)</span>
+  <span class='@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='level identifier id'>level</span>     <span class='assign token'>=</span> <span class='log_level identifier id'>log_level</span>
+  <span class='@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='formatter identifier id'>formatter</span> <span class='assign token'>=</span> <span class='Proc constant id'>Proc</span><span class='dot token'>.</span><span class='new identifier id'>new</span> <span class='lbrace token'>{</span><span class='bitor op'>|</span><span class='s identifier id'>s</span><span class='comma token'>,</span> <span class='t identifier id'>t</span><span class='comma token'>,</span> <span class='n identifier id'>n</span><span class='comma token'>,</span> <span class='msg identifier id'>msg</span><span class='bitor op'>|</span> <span class='dstring node'>&quot;[#{t}] #{msg}\n&quot;</span><span class='rbrace token'>}</span>
+  <span class='@logger ivar id'>@logger</span>
 <span class='end end kw'>end</span>
 </pre>
     </td>
@@ -379,18 +483,18 @@ depends on what&#8217;s in the config hash.
       <pre class="lines">
 
 
-70
-71
-72
-73
-74
-75
-76
-77
-78</pre>
+105
+106
+107
+108
+109
+110
+111
+112
+113</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/ginatra/config.rb', line 70</span>
+      <pre class="code"><span class="info file"># File 'lib/ginatra/config.rb', line 105</span>
 
 <span class='def def kw'>def</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='method_missing identifier id'>method_missing</span><span class='lparen token'>(</span><span class='sym identifier id'>sym</span><span class='comma token'>,</span> <span class='mult op'>*</span><span class='args identifier id'>args</span><span class='comma token'>,</span> <span class='bitand op'>&amp;</span><span class='block identifier id'>block</span><span class='rparen token'>)</span>
   <span class='if if kw'>if</span> <span class='@config ivar id'>@config</span><span class='dot token'>.</span><span class='respond_to? fid id'>respond_to?</span><span class='lparen token'>(</span><span class='sym identifier id'>sym</span><span class='rparen token'>)</span>
@@ -439,18 +543,18 @@ mirrors <tt>method_missing</tt>.
       <pre class="lines">
 
 
-84
-85
-86
-87
-88
-89
-90
-91
-92</pre>
+119
+120
+121
+122
+123
+124
+125
+126
+127</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/ginatra/config.rb', line 84</span>
+      <pre class="code"><span class="info file"># File 'lib/ginatra/config.rb', line 119</span>
 
 <span class='def def kw'>def</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='respond_to? fid id'>respond_to?</span><span class='lparen token'>(</span><span class='name identifier id'>name</span><span class='rparen token'>)</span>
   <span class='if if kw'>if</span> <span class='@config ivar id'>@config</span><span class='dot token'>.</span><span class='respond_to? fid id'>respond_to?</span><span class='lparen token'>(</span><span class='name identifier id'>name</span><span class='rparen token'>)</span>
@@ -495,14 +599,14 @@ Very Destructive Method. Use with care!
       <pre class="lines">
 
 
-25
-26
-27
-28
-29</pre>
+60
+61
+62
+63
+64</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/ginatra/config.rb', line 25</span>
+      <pre class="code"><span class="info file"># File 'lib/ginatra/config.rb', line 60</span>
 
 <span class='def def kw'>def</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='setup! fid id'>setup!</span>
   <span class='File constant id'>File</span><span class='dot token'>.</span><span class='open identifier id'>open</span><span class='lparen token'>(</span><span class='CONFIG_PATH constant id'>CONFIG_PATH</span><span class='comma token'>,</span> <span class='string val'>'w'</span><span class='rparen token'>)</span> <span class='do do kw'>do</span> <span class='bitor op'>|</span><span class='f identifier id'>f</span><span class='bitor op'>|</span>
@@ -520,7 +624,7 @@ Very Destructive Method. Use with care!
 </div>
     
     <div id="footer">
-  Generated on Fri Dec  4 17:15:05 2009 by 
+  Generated on Wed Jan  6 22:59:52 2010 by 
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool">yard</a>
   0.4.0 (ruby-1.8.7).
 </div>
