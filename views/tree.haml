@@ -1,0 +1,20 @@
+= partial(:header, :locals => {:repo => @repo})
+%h3
+  Tree: #{@tree.id} #{archive_link @tree, @repo.param}
+.active
+  %ul.commit-tree
+    - @tree.trees.each do |tree|
+      - tree_path = "#{tree.name}"
+      %li.tree
+        %a{:href => "#{prefix_url(@path[:tree])}#{tree_path}"}= tree.basename
+        %ul
+          - tree.trees.each do |next_tree|
+            - new_path = tree_path + "/#{next_tree.name}"
+            = partial(:tree_part, :locals => {:current_tree => next_tree, :tree_path => new_path, :path => @path })
+          - tree.blobs.each do |next_blob|
+            %li.blob
+              %a{:href => "#{prefix_url(@path[:blob])}/#{tree_path}/#{next_blob.basename}"}= next_blob.basename
+    - @tree.blobs.each do |blob|
+      %li.blob
+        %a{:href => "#{prefix_url(@path[:blob])}/#{blob.basename}"}= blob.basename
+  .clearfix &nbsp;

@@ -1,0 +1,9 @@
+%li.tree
+  %a{:href => "#{path[:tree]}#{tree_path}"}= current_tree.basename
+  %ul
+    - current_tree.trees.each do |next_tree|
+      - new_path = tree_path + "/#{next_tree.name}"
+      = partial(:tree_part, :locals => {:current_tree => next_tree, :tree_path => new_path, :path => path })
+    - current_tree.blobs.each do |next_blob|
+      %li.blob
+        %a{:href => "#{prefix_url(path[:blob])}#{tree_path}/#{next_blob.basename}"}= next_blob.basename

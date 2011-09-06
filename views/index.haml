@@ -1,0 +1,9 @@
+%h3 Repositories
+.active.repo-list
+  .commit-info
+    = h Ginatra::Config.description
+  %dl
+    - Ginatra::RepoList.list.each do |repo|
+      %dt
+        %a{:href => prefix_url(repo.param)}= repo.name
+      %dd= h repo.description

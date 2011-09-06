@@ -69,7 +69,7 @@ module Ginatra
     # The root route
     # This works by interacting with the Ginatra::Repolist singleton.
     get '/' do
-      erb :index
+      haml :index
     end
 
     # The atom feed of recent commits to a +repo+.
@@ -94,7 +94,7 @@ module Ginatra
       @repo = RepoList.find(params[:repo])
       @commits = @repo.commits
       etag(@commits.first.id) if Ginatra::App.production?
-      erb :log
+      haml :log
     end
 
     get '/:repo/graph' do
@@ -120,7 +120,7 @@ module Ginatra
         h[:login] = c.author.email
         h
       end.to_json
-      erb :graph
+      haml :graph
     end
 
     # The atom feed of recent commits to a certain branch of a +repo+.
@@ -146,7 +146,7 @@ module Ginatra
       @repo = RepoList.find(params[:repo])
       @commits = @repo.commits(params[:ref])
       etag(@commits.first.id) if Ginatra::App.production?
-      erb :log
+      haml :log
     end
 
     # The patch file for a given commit to a +repo+.
@@ -167,7 +167,7 @@ module Ginatra
       @repo = RepoList.find(params[:repo])
       @commit = @repo.commit(params[:commit]) # can also be a ref
       etag(@commit.id) if Ginatra::App.production?
-      erb(:commit)
+      haml(:commit)
     end
 
     # Download an archive of a given tree!
@@ -199,7 +199,7 @@ module Ginatra
       @path = {}
       @path[:tree] = "#{params[:repo]}/tree/#{params[:tree]}"
       @path[:blob] = "#{params[:repo]}/blob/#{params[:tree]}"
-      erb(:tree)
+      haml(:tree)
     end
 
     # HTML page for a given tree in a given +repo+.
@@ -221,7 +221,7 @@ module Ginatra
         @path = {}
         @path[:tree] = "#{params[:repo]}/tree/#{params[:tree]}/#{params[:splat].first}"
         @path[:blob] = "#{params[:repo]}/blob/#{params[:tree]}/#{params[:splat].first}"
-        erb(:tree)
+        haml(:tree)
       end
     end
 
@@ -233,7 +233,7 @@ module Ginatra
       @repo = RepoList.find(params[:repo])
       @blob = @repo.blob(params[:blob])
       etag(@blob.id) if Ginatra::App.production?
-      erb(:blob)
+      haml(:blob)
     end
 
     # HTML page for a given blob in a given repo.
@@ -252,7 +252,7 @@ module Ginatra
         redirect "/#{params[:repo]}/tree/#{params[:tree]}/#{params[:splat].first}"
       else
         etag(@blob.id) if Ginatra::App.production?
-        erb(:blob)
+        haml(:blob)
       end
     end
 
@@ -271,7 +271,7 @@ module Ginatra
         @previous_commits = !@repo.commits(params[:ref], 10, (params[:page] - 1) * 10).empty?
       end
       @separator = @next_commits && @previous_commits
-      erb :log
+      haml :log
     end
 
   end # App
