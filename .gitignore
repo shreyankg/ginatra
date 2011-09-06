@@ -14,3 +14,4 @@ _layouts/
 doc/*
 pkg/*
 Gemfile.lock
+.bundle/config
