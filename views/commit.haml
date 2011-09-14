@@ -3,9 +3,7 @@
   Commit: #{@commit.id}#{commit_refs(@commit, @repo.param)} #{patch_link(@commit, @repo.param)}
 .active
   #commit.single-commit
-    = partial(:commit_info_box,    |
-      :locals => { :repo => @repo, |
-      :commit => @commit })        |
+    = partial(:commit_info_box, :locals => { :repo => @repo, :commit => @commit })
     = actor_boxes @commit
     #message= simple_format(h(@commit.message))
     = file_listing(@commit)

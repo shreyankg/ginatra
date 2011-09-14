@@ -5,14 +5,14 @@
       %dd
         %a{:href => "#{prefix_url(repo.param)}/commit/#{commit.id_abbrev}"}
           %code= commit.id
-    %br/
-    %dt tree:
-    %dd
-      %a{:href => "#{prefix_url(repo.param)}/tree/#{commit.tree.id[0..7]}"}
-        %code= commit.tree.id
-    %br/
-    - commit.parents.each do |parent|
-      %dt parent:
+      %br/
+      %dt tree:
       %dd
-        %a{:href => "#{prefix_url(repo.param)}/commit/#{parent.id_abbrev}"}
-          %code= parent.id
+        %a{:href => "#{prefix_url(repo.param)}/tree/#{commit.tree.id[0..7]}"}
+          %code= commit.tree.id
+      %br/
+      - commit.parents.each do |parent|
+        %dt parent:
+        %dd
+          %a{:href => "#{prefix_url(repo.param)}/commit/#{parent.id_abbrev}"}
+            %code= parent.id
