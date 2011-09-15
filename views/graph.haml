@@ -1,4 +1,5 @@
 = partial(:header, :locals => {:repo => @repo})
+= partial(:tab, :locals => {:repo => @repo})
 %script{:charset => "utf-8", :src => prefix_url("src/raphael.js"), :type => "text/javascript"}
 :javascript
   var chunk1={commits:#{@commits_json}}
