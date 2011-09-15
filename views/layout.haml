@@ -13,12 +13,14 @@
     %link{:href => prefix_url("src/stylesheet.css"), :media => "screen", :rel => "stylesheet", :type => "text/css"}
 
   %body
-    #content
-      #inner
-        %h1
-          %a{:href => prefix_url} Ginatra
-        = yield
-      #footer-spacer &nbsp;
-    #footer
+    .topbar
+      .fill
+        .container
+          %h3
+            %a{:href => prefix_url} Ginatra
+    .container
+      = yield
+
+    %footer
       Ginatra &mdash; &copy; 2009 Samuel Elliott &mdash;
       %a{:href => "http://www.opensource.org/licenses/mit-license.php"} MIT Licence
