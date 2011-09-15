@@ -1,19 +1,35 @@
 = partial(:header, :locals => {:repo => @repo})
+
+%ul.tabs
+  %li
+    %a Source
+  %li.active 
+    %a Commits
+  %li 
+    %a.branch-graph{:href => "#{h prefix_url(@repo.param)}/graph"} Branch graph
+  %li
+    = atom_feed_link(@repo.param, params[:ref])
+
 %h3
-  Commit: #{@commit.id}#{commit_refs(@commit, @repo.param)} #{patch_link(@commit, @repo.param)}
-.active
-  #commit.single-commit
+  Commit:
+  %small
+    #{@commit.id}#{commit_refs(@commit, @repo.param)} #{patch_link(@commit, @repo.param)}
+
+.well
+  = simple_format(h(@commit.message))
+  .commit-info-menu
     = partial(:commit_info_box, :locals => { :repo => @repo, :commit => @commit })
     = actor_boxes @commit
-    #message= simple_format(h(@commit.message))
-    = file_listing(@commit)
-    #files
-      - count = 0
-      - @commit.diffs.select { |d| !d.deleted_file && !d.new_file }.each do |diff|
-        - count += 1
-        %h4
-          %img{:src => prefix_url("img/doc.png")}/
-          %a{:name => "file_#{count}"}
-            %code= diff.b_path
-        %pre
-          %code.diff= h diff.diff
+  .clearboth
+
+= file_listing(@commit)
+#files
+  - count = 0
+  - @commit.diffs.select { |d| !d.deleted_file && !d.new_file }.each do |diff|
+    - count += 1
+    %h4
+      %img{:src => prefix_url("img/doc.png")}/
+      %a{:name => "file_#{count}"}
+        %code= diff.b_path
+    %pre
+      %code.diff= h diff.diff
