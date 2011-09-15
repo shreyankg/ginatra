@@ -10,6 +10,10 @@ Develop
     $ bundle install --path tmp
     # preview via Pow or rackup
 
+Usage
+-----
+
+Please refer [original README](https://github.com/lenary/ginatra#readme)
 Licence
 -------
 
