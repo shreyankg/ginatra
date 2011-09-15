@@ -1,26 +1,56 @@
 = partial(:header, :locals => {:repo => @repo})
+
+%ul.tabs
+  %li
+    %a Source
+  %li.active 
+    %a Commits
+  %li 
+    %a.branch-graph{:href => "#{h prefix_url(@repo.param)}/graph"} Branch graph
+  %li
+    = atom_feed_link(@repo.param, params[:ref])
+
 %h3
-  Commits
+  Commits Log
   - if params[:ref]
     \: #{params[:ref]}
-  = atom_feed_link(@repo.param, params[:ref])
-  %a.branch-graph{:href => "#{h prefix_url(@repo.param)}/graph"} Branch graph
-.active
+
+.page-nav
   - if @previous_commits
-    %a{:href => "#{prefix_url(params[:repo])}/#{params[:ref]}/#{params[:page] - 1}"} Previous
-  - if @separator
-    |
+    %a.btn.small{:href => "#{prefix_url(params[:repo])}/#{params[:ref]}/#{params[:page] - 1}"}
+      :escaped
+        << Previous
   - if @next_commits
-    %a{:href => "#{prefix_url(params[:repo])}/#{params[:ref]}/#{params[:page] + 1}"} Next
-  .list
-    #heads
+    %a.btn.small{:href => "#{prefix_url(params[:repo])}/#{params[:ref]}/#{params[:page] + 1}"}
+      :escaped
+        Next >>
+
+.row
+  .span12.columuns
+    %table.zebra-striped
+      - @commits.each do |commit|
+        %tr
+          %td
+            - url = prefix_url("#{@repo.param}/commit/#{commit.id_abbrev}")
+            .commit{:id => "commit_#{commit.id_abbrev}", :onclick => "location.href='#{url}'"}
+              %h5= truncate(h(commit.short_message), { :length => 140, :separator => ' '})
+              %h6
+                = commit.author.name
+                %small (author)
+                %small= nicetime(commit.committed_date)
+              %p
+                %a{:href => url}= commit.id
+                %span.refs= commit_refs(commit, @repo.param)
+
+  .span4.columns
+    .well
       %h3 Heads
       %ul
         - @repo.heads.each do |head|
           %li
             %a{:href => "#{h prefix_url(@repo.param)}/#{h head.name}"}
               = h head.name
-    #tags
+    .well
       %h3 Tags
       - unless @repo.tags.empty?
         %ul
@@ -30,20 +60,4 @@
                 = h tag.name
       - else
         %p No tags
-  #commit-log
-    - @commits.each do |commit|
-      - url = prefix_url("#{@repo.param}/commit/#{commit.id_abbrev}")
-      .commit{:id => "commit_#{commit.id_abbrev}", :onclick => "location.href='#{url}'"}
-        .right
-          %span.id
-            %code
-              %a{:href => url}= commit.id
-          %span.refs= commit_refs(commit, @repo.param)
-        %span.date= nicetime(commit.committed_date)
-        %br/
-        %span.message= truncate(h(commit.short_message), { :length => 140, :separator => ' '})
-        %br/
-        %span.author
-          = commit.author.name
-          %small (author)
-  .clearfix &nbsp;
+
