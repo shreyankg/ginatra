@@ -1,9 +1,12 @@
-%h3 Repositories
-.active.repo-list
-  .commit-info
-    = h Ginatra::Config.description
-  %dl
-    - Ginatra::RepoList.list.each do |repo|
-      %dt
-        %a{:href => prefix_url(repo.param)}= repo.name
-      %dd= h repo.description
+.page-header
+  %h1 Repositories
+
+%table.zebra-striped
+  %tr
+    %th= h Ginatra::Config.description
+  - Ginatra::RepoList.list.each do |repo|
+    %tr
+      %td
+        %h2
+          %a{:href => prefix_url(repo.param)}= repo.name
+        %h6= h repo.description
