@@ -55,6 +55,8 @@ module Ginatra
       current_path = File.expand_path(File.dirname(__FILE__))
       set :public, "#{current_path}/../public"
       set :views, "#{current_path}/../views"
+      set :haml, {:format => :html5}
+      set :scss, {:style => :compact, :debug_info => false}
     end
 
     helpers Helpers, Sinatra::Partials
