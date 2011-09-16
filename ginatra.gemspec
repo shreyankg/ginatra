@@ -12,6 +12,7 @@ Gem::Specification.new do |s|
   s.add_dependency('vegas', '~> 0.1.8')
   s.add_dependency('builder', '~> 3.0.0')
   s.add_dependency('haml', '~> 3.1.2')
+  s.add_dependency('sass', '~> 3.1.7')
 
 
   s.files         = `git ls-files`.split("\n")

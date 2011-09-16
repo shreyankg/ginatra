@@ -72,6 +72,12 @@ module Ginatra
       haml :index
     end
 
+    # CSS
+    get '/:name.css' do
+      content_type 'text/css', :charset => 'utf-8'
+      scss :"../public/src/#{params[:name]}"
+    end
+
     # The atom feed of recent commits to a +repo+.
     #
     # This only returns commits to the +master+ branch.
