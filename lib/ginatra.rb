@@ -120,7 +120,7 @@ module Ginatra
     # Shows the most recent commits in a log format
     #
     # @param [String] repo the repository url-sanitised-name
-    get '/:repo' do
+    get '/:repo/commits' do
       @repo = RepoList.find(params[:repo])
       @commits = @repo.commits
       etag(@commits.first.id) if Ginatra::App.production?
