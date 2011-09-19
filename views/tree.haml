@@ -12,40 +12,29 @@
   .clearboth
 
 .row
-  .span12.columuns
-    %ul.commit-tree
-      - @tree.trees.each do |tree|
-        - tree_path = "#{tree.name}"
-        %li.tree
-          %a{:href => "#{prefix_url(@path[:tree])}#{tree_path}"}= tree.basename
-          %ul
-            - tree.trees.each do |next_tree|
-              - new_path = tree_path + "/#{next_tree.name}"
-              = partial(:tree_part, :locals => {:current_tree => next_tree, :tree_path => new_path, :path => @path })
-            - tree.blobs.each do |next_blob|
-              %li.blob
-                %a{:href => "#{prefix_url(@path[:blob])}/#{tree_path}/#{next_blob.basename}"}= next_blob.basename
-      - @tree.blobs.each do |blob|
-        %li.blob
-          %a{:href => "#{prefix_url(@path[:blob])}/#{blob.basename}"}= blob.basename
+  .span16.columuns
+    %table.commit-tree
+      %tbody
+        %tr
+          %th name
+          %th age
+          %th message
+        - @tree.trees.each do |tree|
+          - tree_path = "#{tree.name}"
+          %tr.tree
+            %td
+              %img{:height => "16", :width => "16", :src => "https://a248.e.akamai.net/assets.github.com/images/icons/dir.png"}
+                %a{:href => "#{prefix_url(@path[:tree])}#{tree_path}"}= tree.basename
+            %td
+            %td
+        - @tree.blobs.each do |blob|
+          - blame = Grit::Blob.blame(@repo, @commit, blob.basename).map{|a| a[0]}.uniq.sort{|a,b| b.date <=> a.date}[0]
+          %tr.blob
+            %td
+              %img{:height => "16", :width => "16", :src => "https://a248.e.akamai.net/assets.github.com/images/icons/txt.png"}
+                %a{:href => "#{prefix_url(@path[:blob])}/#{blob.basename}"}= blob.basename
+            %td
+              = nicetime blame.date
+            %td
+              = blame.message
     .clearfix &nbsp;
-
-  .span4.columns
-    .well
-      %h3 Heads
-      %ul
-        - @repo.heads.each do |head|
-          %li
-            %a{:href => "#{h prefix_url(@repo.param)}/#{h head.name}"}
-              = h head.name
-    .well
-      %h3 Tags
-      - unless @repo.tags.empty?
-        %ul
-          - @repo.tags.each do |tag|
-            %li
-              %a{:href => "#{h prefix_url(@repo.param)}/commit/#{h tag.name}"}
-                = h tag.name
-      - else
-        %p No tags
-
