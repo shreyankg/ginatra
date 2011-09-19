@@ -4,7 +4,11 @@
 %h3
   Commit:
   %small
-    #{@commit.id}#{commit_refs(@commit, @repo.param)} #{patch_link(@commit, @repo.param)}
+    #{@commit.id}
+  %span.label
+    #{commit_refs(@commit, @repo.param)} 
+  %span.label.notice
+    #{patch_link(@commit, @repo.param)}
 
 .well
   = simple_format(h(@commit.message))
