@@ -31,3 +31,9 @@ pre code {
 h6 {
   text-transform: none;
 }
+table.commit-tree {
+  border: none;
+  th, td {
+    border-width: 1px 0px;
+  }
+}
