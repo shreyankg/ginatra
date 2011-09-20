@@ -3,7 +3,6 @@
     cursor: move;
     height: 70%;
     overflow: scroll;
-    position: absolute;
     width: auto;
-	margin: 6ex 3ex 0ex 0ex;
+    margin: 6ex 3ex 0ex 0ex;
 }
