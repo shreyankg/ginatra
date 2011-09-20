@@ -8,6 +8,8 @@ Develop
     $ git clone git://github.com/marutanm/ginatra.git
     $ cd ginatra
     $ bundle install --path tmp
+    $ git submodule init
+    $ git submodule update
     # preview via Pow or rackup
 
 Usage

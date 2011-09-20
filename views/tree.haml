@@ -1,20 +1,51 @@
 = partial(:header, :locals => {:repo => @repo})
+= partial(:tab, :locals => {:repo => @repo})
+
 %h3
   Tree: #{@tree.id} #{archive_link @tree, @repo.param}
-.active
-  %ul.commit-tree
-    - @tree.trees.each do |tree|
-      - tree_path = "#{tree.name}"
-      %li.tree
-        %a{:href => "#{prefix_url(@path[:tree])}#{tree_path}"}= tree.basename
+
+.well
+  = simple_format(h(@commit.message))
+  .commit-info-menu
+    = partial(:commit_info_box, :locals => { :repo => @repo, :commit => @commit })
+    = actor_boxes @commit
+  .clearboth
+
+.row
+  .span12.columuns
+    %ul.commit-tree
+      - @tree.trees.each do |tree|
+        - tree_path = "#{tree.name}"
+        %li.tree
+          %a{:href => "#{prefix_url(@path[:tree])}#{tree_path}"}= tree.basename
+          %ul
+            - tree.trees.each do |next_tree|
+              - new_path = tree_path + "/#{next_tree.name}"
+              = partial(:tree_part, :locals => {:current_tree => next_tree, :tree_path => new_path, :path => @path })
+            - tree.blobs.each do |next_blob|
+              %li.blob
+                %a{:href => "#{prefix_url(@path[:blob])}/#{tree_path}/#{next_blob.basename}"}= next_blob.basename
+      - @tree.blobs.each do |blob|
+        %li.blob
+          %a{:href => "#{prefix_url(@path[:blob])}/#{blob.basename}"}= blob.basename
+    .clearfix &nbsp;
+
+  .span4.columns
+    .well
+      %h3 Heads
+      %ul
+        - @repo.heads.each do |head|
+          %li
+            %a{:href => "#{h prefix_url(@repo.param)}/#{h head.name}"}
+              = h head.name
+    .well
+      %h3 Tags
+      - unless @repo.tags.empty?
         %ul
-          - tree.trees.each do |next_tree|
-            - new_path = tree_path + "/#{next_tree.name}"
-            = partial(:tree_part, :locals => {:current_tree => next_tree, :tree_path => new_path, :path => @path })
-          - tree.blobs.each do |next_blob|
-            %li.blob
-              %a{:href => "#{prefix_url(@path[:blob])}/#{tree_path}/#{next_blob.basename}"}= next_blob.basename
-    - @tree.blobs.each do |blob|
-      %li.blob
-        %a{:href => "#{prefix_url(@path[:blob])}/#{blob.basename}"}= blob.basename
-  .clearfix &nbsp;
+          - @repo.tags.each do |tag|
+            %li
+              %a{:href => "#{h prefix_url(@repo.param)}/commit/#{h tag.name}"}
+                = h tag.name
+      - else
+        %p No tags
+

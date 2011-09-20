@@ -80,6 +80,28 @@ module Ginatra
       scss :"../public/src/#{params[:name]}"
     end
 
+    # The project route
+    # Shows source code tree and recent commit
+    #
+    # @param [String] repo the repository url-sanitised-name
+    get '/:repo/?' do
+      @repo = RepoList.find(params[:repo])
+      @commit = @repo.commit('master')
+
+      if (tag = @repo.git.rev_parse({'--verify' => ''}, "#{params[:tree]}^{tree}")).empty?
+        # we don't have a tree.
+        not_found
+      else
+        etag(tag) if Ginatra::App.production?
+      end
+
+      @tree = @repo.commits.first.tree
+      @path = {}
+      @path[:tree] = "#{params[:repo]}/tree/#{@tree.id}"
+      @path[:blob] = "#{params[:repo]}/blob/#{@tree.id}"
+      haml :tree
+    end
+
     # The atom feed of recent commits to a +repo+.
     #
     # This only returns commits to the +master+ branch.
@@ -98,7 +120,7 @@ module Ginatra
     # Shows the most recent commits in a log format
     #
     # @param [String] repo the repository url-sanitised-name
-    get '/:repo' do
+    get '/:repo/commits' do
       @repo = RepoList.find(params[:repo])
       @commits = @repo.commits
       etag(@commits.first.id) if Ginatra::App.production?
@@ -141,20 +163,6 @@ module Ginatra
       return "" if @commits.empty?
       etag(@commits.first.id) if Ginatra::App.production?
       builder :atom, :layout => nil
-    end
-
-    # The html page for a given +ref+ of a +repo+.
-    #
-    # Shows the most recent commits in a log format
-    #
-    # @param [String] repo the repository url-sanitised-name
-    # @param [String] ref the repository ref
-    get '/:repo/:ref' do
-      params[:page] = 1
-      @repo = RepoList.find(params[:repo])
-      @commits = @repo.commits(params[:ref])
-      etag(@commits.first.id) if Ginatra::App.production?
-      haml :log
     end
 
     # The patch file for a given commit to a +repo+.
@@ -262,6 +270,20 @@ module Ginatra
         etag(@blob.id) if Ginatra::App.production?
         haml(:blob)
       end
+    end
+
+    # The html page for a given +ref+ of a +repo+.
+    #
+    # Shows the most recent commits in a log format
+    #
+    # @param [String] repo the repository url-sanitised-name
+    # @param [String] ref the repository ref
+    get '/:repo/:ref' do
+      params[:page] = 1
+      @repo = RepoList.find(params[:repo])
+      @commits = @repo.commits(params[:ref])
+      etag(@commits.first.id) if Ginatra::App.production?
+      haml :log
     end
 
     # pagination route for the commits to a given ref in a +repo+.
