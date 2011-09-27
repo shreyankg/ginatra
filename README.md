@@ -1,6 +1,6 @@
 # Ginatra
 
-[![](http://travis-ci.org/lenary/ginatra.png)](http://travis-ci.org/marutanm/ginatra)
+[![](http://travis-ci.org/marutanm/ginatra.png)](http://travis-ci.org/marutanm/ginatra)
 
 Develop
 -------
