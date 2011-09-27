@@ -2,14 +2,15 @@
 = partial(:tab, :locals => {:repo => @repo})
 
 %h3
-  Tree: #{@tree.id} #{archive_link @tree, @repo.param}
+  Tree: #{@tree.id}
 
-.well
-  = simple_format(h(@commit.message))
-  .commit-info-menu
-    = partial(:commit_info_box, :locals => { :repo => @repo, :commit => @commit })
-    = actor_boxes @commit
-  .clearboth
+- unless @commit.nil?
+  .well
+    = simple_format(h(@commit.message)) 
+    .commit-info-menu
+      = partial(:commit_info_box, :locals => { :repo => @repo, :commit => @commit })
+      = actor_boxes @commit
+    .clearboth
 
 .row
   .span16.columuns
@@ -24,7 +25,7 @@
           %tr.tree
             %td
               %img{:height => "16", :width => "16", :src => "https://a248.e.akamai.net/assets.github.com/images/icons/dir.png"}
-                %a{:href => "#{prefix_url(@path[:tree])}#{tree_path}"}= tree.basename
+                %a{:href => "#{prefix_url(@path[:tree])}/#{tree_path}"}= tree.basename
             %td
             %td
         - @tree.blobs.each do |blob|
@@ -34,7 +35,7 @@
               %img{:height => "16", :width => "16", :src => "https://a248.e.akamai.net/assets.github.com/images/icons/txt.png"}
                 %a{:href => "#{prefix_url(@path[:blob])}/#{blob.basename}"}= blob.basename
             %td
-              = nicetime blame.date
+              = nicetime(blame.date) unless blame.nil?
             %td
-              = blame.message
+              = blame.message unless blame.nil?
     .clearfix &nbsp;
