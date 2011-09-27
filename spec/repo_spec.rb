@@ -23,7 +23,7 @@ describe "Ginatra" do
     end
 
     it "should have a description" do
-      @ginatra_repo.description.should  =~ /description file for this repository and set the description for it./
+      @ginatra_repo.description.should  == ''
     end
 
     it "should have an array of commits that match the grit array of commits limited to 10 items" do
