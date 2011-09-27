@@ -31,7 +31,8 @@ module Ginatra
       @param = File.split(path).last
       @name = @param
       @description = @repo.description
-      @description = "Please edit the #{@repo.path}/description file for this repository and set the description for it." if /^Unnamed repository;/.match(@description)
+      #@description = "Please edit the #{@repo.path}/description file for this repository and set the description for it." if /^Unnamed repository;/.match(@description)
+      @description = '' if /^Unnamed repository;/.match(@description)
     end
 
     def ==(other_repo)

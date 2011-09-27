@@ -1,11 +1,11 @@
 = partial(:header, :locals => {:repo => @repo})
 %h3
-  Blob: #{params[:splat].first}
+  ="Blob: #{linked_path_for(params[:splat].first)}"
 .active
   .blob
     %h4
       %img{:src => prefix_url("img/doc.png")}/
       = @blob.name
     %pre
-      %code= @blob.data
+      %code= h(@blob.data)
   .clearfix &nbsp;

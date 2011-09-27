@@ -5,10 +5,6 @@
   Commit:
   %small
     #{@commit.id}
-  %span.label
-    #{commit_refs(@commit, @repo.param)} 
-  %span.label.notice
-    #{patch_link(@commit, @repo.param)}
 
 .well
   = simple_format(h(@commit.message))
