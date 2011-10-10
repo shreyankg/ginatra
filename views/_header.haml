@@ -1,0 +1,4 @@
+.page-header
+  %h1
+    %a{:href => prefix_url(repo.param)}= repo.name
+    %small= repo.description.split("\n").first

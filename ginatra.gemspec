@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = "ginatra"
-  s.version = "2.3.0"
+  s.version = "3.0.1"
   s.summary = "A Gitweb Clone in Sinatra and Grit"
   s.description = "Host your own git repository browser through the power of Sinatra and Grit"
   s.email = "sam@lenary.co.uk"
@@ -11,7 +11,8 @@ Gem::Specification.new do |s|
   s.add_dependency('grit', '~> 2.4.1')
   s.add_dependency('vegas', '~> 0.1.8')
   s.add_dependency('builder', '~> 3.0.0')
-  s.add_dependency('erubis', '~> 2.7.0')
+  s.add_dependency('haml', '~> 3.1.2')
+  s.add_dependency('sass', '~> 3.1.7')
 
 
   s.files         = `git ls-files`.split("\n")

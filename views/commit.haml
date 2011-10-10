@@ -1,0 +1,26 @@
+= partial(:header, :locals => {:repo => @repo})
+= partial(:tab, :locals => {:repo => @repo})
+
+%h3
+  Commit:
+  %small
+    #{@commit.id}
+
+.well
+  = simple_format(h(@commit.message))
+  .commit-info-menu
+    = partial(:commit_info_box, :locals => { :repo => @repo, :commit => @commit })
+    = actor_boxes @commit
+  .clearboth
+
+= file_listing(@commit)
+#files
+  - count = 0
+  - @commit.diffs.select { |d| !d.deleted_file && !d.new_file }.each do |diff|
+    - count += 1
+    %h4
+      %img{:src => prefix_url("img/doc.png")}/
+      %a{:name => "file_#{count}"}
+        %code= diff.b_path
+    %pre
+      %code.diff= h diff.diff

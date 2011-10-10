@@ -1,0 +1,14 @@
+%ul.unstyled
+  %li
+    commit:
+    %a{:href => "#{prefix_url(repo.param)}/commit/#{commit.id_abbrev}"}
+      %code= commit.id
+  %li
+    tree:
+    %a{:href => "#{prefix_url(repo.param)}/tree/#{commit.tree.id[0..7]}"}
+      %code= commit.tree.id
+  - commit.parents.each do |parent|
+    %li
+      parent:
+      %a{:href => "#{prefix_url(repo.param)}/commit/#{parent.id_abbrev}"}
+        %code= parent.id

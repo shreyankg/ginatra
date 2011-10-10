@@ -230,5 +230,24 @@ module Ginatra
     def atom_feed_link(repo_param, ref=nil)
       "<a href=\"" + prefix_url("#{repo_param}#{"/#{ref}" if !ref.nil?}.atom") + "\" title=\"Atom Feed\" class=\"atom\">Feed</a>"
     end
+
+    # Splits blob path into linkable directories
+    #
+    # @param [String] path
+    # 
+    # @return [String] the link
+    def linked_path_for(path)
+      return path unless path.include?('/')
+      current_path_base = request.env['REQUEST_URI'].gsub(path,'')
+      dirs = path.split('/')
+      file = dirs.pop
+      linked_path = ''
+      dirs.each do |dir|
+        link = '<a href="' + current_path_base + dir + '">' + dir + '</a>'
+        current_path_base << "#{dir}/"
+        linked_path << "#{link}/" 
+      end
+      linked_path << file
+    end
   end
 end

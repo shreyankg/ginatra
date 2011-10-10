@@ -1,0 +1,41 @@
+= partial(:header, :locals => {:repo => @repo})
+= partial(:tab, :locals => {:repo => @repo})
+
+%h3
+  Tree: #{@tree.id}
+
+- unless @commit.nil?
+  .well
+    = simple_format(h(@commit.message)) 
+    .commit-info-menu
+      = partial(:commit_info_box, :locals => { :repo => @repo, :commit => @commit })
+      = actor_boxes @commit
+    .clearboth
+
+.row
+  .span16.columuns
+    %table.commit-tree
+      %tbody
+        %tr
+          %th name
+          %th age
+          %th message
+        - @tree.trees.each do |tree|
+          - tree_path = "#{tree.name}"
+          %tr.tree
+            %td
+              %img{:height => "16", :width => "16", :src => "https://a248.e.akamai.net/assets.github.com/images/icons/dir.png"}
+                %a{:href => "#{prefix_url(@path[:tree])}/#{tree_path}"}= tree.basename
+            %td
+            %td
+        - @tree.blobs.each do |blob|
+          - blame = Grit::Blob.blame(@repo, @commit, blob.basename).map{|a| a[0]}.uniq.sort{|a,b| b.date <=> a.date}[0]
+          %tr.blob
+            %td
+              %img{:height => "16", :width => "16", :src => "https://a248.e.akamai.net/assets.github.com/images/icons/txt.png"}
+                %a{:href => "#{prefix_url(@path[:blob])}/#{blob.basename}"}= blob.basename
+            %td
+              = nicetime(blame.date) unless blame.nil?
+            %td
+              = blame.message unless blame.nil?
+    .clearfix &nbsp;

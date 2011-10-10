@@ -1,0 +1,54 @@
+= partial(:header, :locals => {:repo => @repo})
+= partial(:tab, :locals => {:repo => @repo})
+
+%h3
+  Commits Log
+  - if params[:ref]
+    \: #{params[:ref]}
+
+.page-nav
+  - if @previous_commits
+    %a.btn.small{:href => "#{prefix_url(params[:repo])}/#{params[:ref]}/#{params[:page] - 1}"}
+      :escaped
+        << Previous
+  - if @next_commits
+    %a.btn.small{:href => "#{prefix_url(params[:repo])}/#{params[:ref]}/#{params[:page] + 1}"}
+      :escaped
+        Next >>
+
+.row
+  .span12.columuns
+    %table.zebra-striped
+      - @commits.each do |commit|
+        %tr
+          %td
+            - url = prefix_url("#{@repo.param}/commit/#{commit.id_abbrev}")
+            .commit{:id => "commit_#{commit.id_abbrev}", :onclick => "location.href='#{url}'"}
+              %h5= truncate(h(commit.short_message), { :length => 140, :separator => ' '})
+              %h6
+                = commit.author.name
+                %small (author)
+                %small= nicetime(commit.committed_date)
+              %p
+                %a{:href => url}= commit.id
+                %span.refs= commit_refs(commit, @repo.param)
+
+  .span4.columns
+    .well
+      %h3 Heads
+      %ul
+        - @repo.heads.each do |head|
+          %li
+            %a{:href => "#{h prefix_url(@repo.param)}/#{h head.name}"}
+              = h head.name
+    .well
+      %h3 Tags
+      - unless @repo.tags.empty?
+        %ul
+          - @repo.tags.each do |tag|
+            %li
+              %a{:href => "#{h prefix_url(@repo.param)}/commit/#{h tag.name}"}
+                = h tag.name
+      - else
+        %p No tags
+

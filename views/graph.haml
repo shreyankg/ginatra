@@ -1,0 +1,13 @@
+= partial(:header, :locals => {:repo => @repo})
+= partial(:tab, :locals => {:repo => @repo})
+%script{:charset => "utf-8", :src => prefix_url("src/raphael.js"), :type => "text/javascript"}
+:javascript
+  var chunk1={commits:#{@commits_json}}
+  var days=#{@days_json}
+%script{:charset => "utf-8", :src => prefix_url("src/branch-graph.js"), :type => "text/javascript"}
+:javascript
+  window.onload = function(){
+  	branchGraph(document.getElementById("holder"));
+  }
+%link{:href => prefix_url("src/graph.css"), :media => "screen", :rel => "stylesheet", :type => "text/css"}
+#holder.graph
